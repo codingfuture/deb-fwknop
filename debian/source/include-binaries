@@ -1,0 +1,6 @@
+test/afl/doc/AFL_status_screen.png
+test/conf/access-include.tar.gz
+test/conf/fcs_spa.pcap
+test/conf/gpg_dirs.tar.gz
+test/conf/spa_over_http.pcap
+test/conf/spa_x_forwarded_for.pcap

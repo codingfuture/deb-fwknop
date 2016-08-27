@@ -1,0 +1,17 @@
+Description: Fix FKO version
+    The FKO perl and python bindings display a FKO version 2.0.2 although they use
+    the FKO library at release 3.0.0. This patches upodates the FKO version constant.
+Author: Franck Joncourt <franck.joncourt@gmail.com>
+Forwarded: https://github.com/mrash/fwknop/issues/230
+
+--- a/lib/fko.h
++++ b/lib/fko.h
+@@ -53,7 +53,7 @@
+ 
+ /* General params
+ */
+-#define FKO_PROTOCOL_VERSION "2.0.2" /**< The fwknop protocol version */
++#define FKO_PROTOCOL_VERSION "3.0.0" /**< The fwknop protocol version */
+ 
+ /**
+  *

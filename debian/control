@@ -1,0 +1,162 @@
+Source: fwknop
+Section: admin
+Priority: extra
+Build-Depends: debhelper (>= 9), automake, libtool, libgpgme11-dev,
+ texinfo, libpcap0.8-dev, po-debconf, libgdbm-dev, iptables,
+ dpkg-dev (>= 1.16.1~), chrpath, python-all-dev, dh-apparmor,
+ dh-python
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Standards-Version: 3.9.8
+Vcs-Git: https://anonscm.debian.org/collab-maint/fwknop.git
+Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/fwknop.git;a=summary
+Homepage: http://www.cipherdyne.com/fwknop/
+X-Python-Version: >= 2.7
+
+Package: libfko3-dev
+Architecture: linux-any
+Section: libdevel
+Breaks: libfko2-dev
+Replaces: libfko2-dev
+Suggests: libfko-doc
+Depends: ${shlibs:Depends}, libfko3 (= ${binary:Version}), ${misc:Depends}
+Description: FireWall KNock OPerator - development library
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected. 
+ .
+ This package provides the development library and its headers.
+
+Package: libfko3
+Section: libs
+Architecture: linux-any
+Breaks: libfko2
+Replaces: libfko2
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FireWall KNock OPerator - shared library
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected. 
+ .
+ This package provides the runtime library for fwknop (written inC).
+
+Package: libfko-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: FireWall KNock OPerator - documentation
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected. 
+ .
+ This package provides the library documentation.
+
+Package: libfko-perl
+Section: perl
+Architecture: linux-any
+Depends: ${perl:Depends},  libfko3 (= ${binary:Version}), ${shlibs:Depends},
+ ${misc:Depends}
+Description: FireWall KNock OPerator - Perl module
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected. 
+ .
+ This package provides the FKO module as a Perl interface.
+
+Package: fwknop-server
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libfko3 (= ${binary:Version}),
+ iptables, lsb-base (>= 3.0-6)
+Suggests: fwknop-apparmor-profile
+Description: FireWall KNock OPerator server side - C version
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, thus preventing any connections from being processed on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected.
+
+Package: fwknop-client
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libfko3 (= ${binary:Version})
+Description: FireWall KNock OPerator client side - C version
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ This is the client program responsible for accepting password input
+ from the user, constructing SPA packets that conform to the fwknop
+ packet format, and encrypting packet data.
+
+Package: libfko-python
+Section: python
+Architecture: linux-any
+Depends: ${python:Depends}, ${misc:Depends}, libfko3 (= ${binary:Version}),
+ ${shlibs:Depends}
+Description: FireWall KNock OPerator - Python module
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected.
+ .
+ This package provides the FKO module as a Python interface.
+
+Package: fwknop-apparmor-profile
+Architecture: all
+Depends: fwknop-server, ${misc:Depends}
+Description: FireWall KNock OPerator - Apparmor profile
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ This is the apparmor profile for the FireWall KNock OPerator server.

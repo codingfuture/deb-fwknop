@@ -1,0 +1,351 @@
+fwknop (2.6.9-1) unstable; urgency=medium
+
+  * QA upload.
+  * New upstream release 
+    - Closes: #826718 - Please update fwknop
+    - Patches:
+      + Updated spelling.diff patch
+      + Added new patch 002_fkoversion.diff
+    - Added debian/source/include-binaries files
+    - libfko2* packages become libfko3* packages to follow shared library
+      number change.
+    - Updated debian/copyright accordingly and fixed some lintian warnings.
+  * Bump up debian policy from 3.9.5 to 3.9.8: no changes
+  * Removed debug package which is automatically built.
+  * Removed ldconfig call from libfko maintainer scripts and added
+    libfko3.triggers to replace them. 
+  * Fixed debian/control: 
+    - Use secure URI (https) for VCS field
+    - Added dh-python to BD field
+  * Added GPG signature verification to debian/watch file. Upstream GPG
+    signature is stored in debian/upstream/signing-key.asc.
+
+ -- Franck Joncourt <franck.joncourt@gmail.com>  Sat, 27 Aug 2016 22:09:29 +0200
+
+fwknop (2.6.0-4) unstable; urgency=medium
+
+  * QA upload.
+  * debian/rules: Disable verbose dh mode.
+  * Add --with-gpg=/usr/bin/gpg to configure call. Closes: #833465.
+    This should probably not be required at all as we are using libgpgme,
+    but at least it will not FTBFS and should behave as before.
+
+ -- Santiago Vila <sanvila@debian.org>  Fri, 05 Aug 2016 00:29:16 +0200
+
+fwknop (2.6.0-3) unstable; urgency=medium
+
+  * QA upload.
+  * Package is orphaned (Bug #831273). Set maintainer to "Debian QA Group".
+  * Fix debian/rules for "dpkg-buildpackage -A" to work. Closes: #806027.
+  * Fix spelling error in libfko2-dev short description.
+
+ -- Santiago Vila <sanvila@debian.org>  Fri, 15 Jul 2016 15:05:36 +0100
+
+fwknop (2.6.0-2.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Use "find -perm /x" instead of "find -perm +x". Closes: #808926
+
+ -- Andreas Metzler <ametzler@debian.org>  Fri, 25 Dec 2015 14:24:41 +0100
+
+fwknop (2.6.0-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix "hardcodes /usr/lib/perl5":
+    Use $Config{vendorarch} in debian/rules.
+    (Closes: #752472)
+
+ -- gregor herrmann <gregoa@debian.org>  Sat, 02 Aug 2014 17:58:22 +0200
+
+fwknop (2.6.0-2) unstable; urgency=low
+
+  * Moved installation of usr.sbin/fwknopd from d.rules to 
+    fwknop-apparmor-profile.install file. (Closes: #735766)
+  * Added copyright stanza for android files in d.copyright
+   (Closes: #735668).
+
+ -- Franck Joncourt <franck@debian.org>  Sat, 18 Jan 2014 21:42:00 +0100
+
+fwknop (2.6.0-1) unstable; urgency=low
+
+  * Imported Upstream version 2.6.0
+  
+  * New fwknop-apparmor-profile package to provide the fwknop-server apparmor
+    profile.
+    - New entry in d.control to create the brand new binary package.
+    - Added BD on dh-apparmor.
+    - Updated d.rules to used dh_apparmor to manage developer scripts.
+    - Added fwknop-apparmor-profile.dirs file to create apparmor directory at
+      install.
+    - Added fwknop-apparmor-profile as suggested package for the fwknop server
+      in d.control.
+  * Bump up debian policy from 3.9.4 to 3.9.5:
+    - Removed dependencies on dpkg (>= 1.15.4) | install-info
+
+ -- Franck Joncourt <franck@debian.org>  Mon, 13 Jan 2014 22:10:17 +0100
+
+fwknop (2.5.1-1) unstable; urgency=low
+
+  * Imported Upstream version 2.5.1
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 28 Jul 2013 19:05:04 +0200
+
+fwknop (2.5-1) unstable; urgency=low
+
+  * Imported Upstream version 2.5
+    - libfko breaks the old ABI. It is bumped from 1.0.0 up to 2.0.0
+      old packages libfko1* are renamed as libfko2*.
+      Updated d.rules to make reference to the new packages.
+    - Patch gpl2.0.diff applied upstream: Removed it from the patches
+      directory.
+    - New python binding
+
+  * The new upstream release add a m4 file to the m4 directory.
+    d.rules: assume the m4 directory is created ; no need to remove it in the
+    clean target and no need to create it in the configure target anymore.
+  * Fixed vcs fields in d.control to use the canonical URI.
+    (Caught by lintian).
+  * Fixed documentation spelling error (s/GNU Public/GNU General Public/g)
+    through a new patch 0001_fix-doc.patch.
+  * Removed useless depdencies default-mta | mail-transport-agent on
+    fwknop-server in d.rules.
+  * Used CFLAGS, CPPFLAGS and LDFLAGS variables to enable the hardening flags
+    to build the libfko-perl binding.
+  * Bumped up Standards-Version to 3.9.4 - no changes.
+  * Packaged the libfko python binding:
+    - d.control: Set X-Python-Version to >= 2.7 and added BD on python-all-dev
+                 Defined the brand new libfko-python binding.
+    - d.rules: Used dh_python2 debhelper
+               Added new instances to build and install libfko-python
+
+ -- Franck Joncourt <franck@debian.org>  Tue, 23 Jul 2013 21:08:42 +0200
+
+fwknop (2.0.4-2) unstable; urgency=low
+
+  * Fixed FTBS ./gpl-2.0.texi:20: raising the section level of @appendixsubsec
+    which is too low (Closes: #708589):
+    Added patch gpl-2.0.diff to substitute @appendixsubsec entries by
+    @appendixsec.
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 19 May 2013 17:55:57 +0200
+
+fwknop (2.0.4-1) unstable; urgency=low
+
+  * Fixed bad permissions for the fwknopd.conf conf file (Closes: #689934)
+    - d.rules: Set the permissions for the fwknopd.conf file to 600 and
+      prevent dh_fixperms from adjusting them.
+    - d.fwknop-server.lintian-overrides: Add an override entry to make sure
+      lintian does not complain about the new permissions.
+  * Added libfko-doc binary package:
+    - d.libfko-doc.docs: Shipped html libfko manual.
+    - d.libfko-doc.doc-base: Added doc-base entry for the manual.
+    - d.rules: Built the html doc in the overwrite_dh_auto_build target.
+  * Added libfko-perl binary package (Closes: #682028):
+    - d.rules : Added overwrite_dh_auto_install target to install
+      the Perl module.
+    - d.control: added new entrey for the libfko-perl package.
+  * Bumped up libfko soname because the ABI changed:
+    - libfko0-* packages become libfko1-* package.
+    - d.libfko.symbols: Updated list of symbols.
+  * d.libfko1.links: Removed useless links.
+  * Added libfko.so symlink for the dev package as noticed by lintian
+    (dev-pkg-without-shlib-symlink).
+    - Removed libfko1-dev.links file.
+    - d.rules: Added new target overwrite_dh_link to link libfko.so.1.0.0
+      to libfko.so.
+  * Added upstart configuration file: fwknop-server.upstart
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 23 Dec 2012 17:57:55 +0100
+
+fwknop (2.0.2-1) unstable; urgency=low
+
+  * Imported Upstream version 2.0.2
+  * Removed previous patches applied upstream.
+  * Set debian compatibility to 9 in d.compat.
+  * Fixed libfko0.symbols file which contains bad symbols from one of the
+    first rc releases. The following functions have been removed:
+    - _rijndael_decrypt
+    - _rijndael_encrypt
+    - append_b64
+    - digest_to_hex
+    - get_random_data
+    - gpg_decrypt
+    - gpg_encrypt
+    - rij_salt_and_iv
+    - rijndael_init
+  * Added previously removed fileds in d.control (Vcs-git/Vcs-Browser)
+    (Closes: #682057)
+  * Created missing m4 directory before configuring the package.
+  * Use of the hardening flags:
+    - Added BD on dpkg-dev (>= 1.16.1~) and on debhelper (>= 9) in d.control.
+    - Set debian compatibility to 9 in d.compat.
+    - Set hardening flags through the DEB_BUILD_MAINT_OPTIONS variable,
+      exported it and included buildflags.mk in d.rules.
+    - Do not overwrite CFLAGS anymore, we now use CFLAGS += in d.rules.
+  * Enable installation of multiarch binaries :
+    - Added Pre-Depends: ${misc:Pre-Depends} for the libfko package in
+      d.control.
+    - Replaced occurrences of /usr/lib/ in debian/*.install with /usr/lib/*/.
+  * Fixed d.rules to handle the new generated configuration files 
+    [access|fwknopd].conf.inst. We revert upstream changes with an overwrite
+    on dh_install.
+  * Updating fwknop-server.postinst to disable easy setup.
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 26 Aug 2012 22:45:00 +0200
+
+fwknop (2.0.0rc2-2) sid; urgency=low
+
+  * Acknowledged NMU : 1.9.12-3.1
+  * Set Architecture as linux-any (Closes: #647654)
+  * Fixed mispelling dependency on the default-mta in d.control.
+    (Closes: #645024)
+  * The brand new C implementation :
+    + does not use Perl anymore. (Closes: #674115)
+    + does not use the whatismyip url anymore ; it is replace by the
+      cipherdyne url at the time. (Closes: #645994)
+  * Bumped up Standards-Version to 3.9.3:
+    + Refreshed copyright holders and updated d.copyright to comply with the
+      1.0 machine-readable copyright file specification.
+  * Updated init script to use log_daemon_msg and log_end_msg function from
+    the lsb library.
+  * Avoid debconf error if not available. (Closes: #673773)
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 24 Jun 2012 20:57:59 +0200
+
+fwknop (2.0.0rc2-1) experimental; urgency=low
+
+  * New upstream release.
+    + Drop the Perl implementation which is not shipped anymore.
+    + Renamed the C implementation from fwknop-c-{client/server} to
+      fwknop-{client/server}.
+    + Bumped shared library version up to 0.0.2.
+      Refreshed libfko0-dev.links, libfko0.install and libfko0.links
+      accordingly.
+    + Updated d.rules to not exclude the fwknop-server package when stripping
+      the symbols since we have renamed the C version in fwknop-server.
+  * Removed Replaces/Conflicts/Provides dependencies for both the
+    fwknop-client and fwknop-server in d.control for the old
+    fwknop-c-{client/server}. This is not needed anymore.
+  * Bumped up Standards-Version to 3.9.1 (no changes).
+  * Set copyright and licence information in d.copyright:
+    + Added patch licence.patch from upstream to improve copyright statements
+      and licence definitions.
+  * Added missing debconf support for fwknop-server. Both the
+    fwknop-server.postinst and the fwknop-server.postrm are added.
+  * Added fwknop-server.preinst to remove old files from the Perl
+    implementation (Fwknop 1.9.x).
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 14 Nov 2010 17:12:20 +0100
+
+fwknop (2.0.0rc2~svn281-1) unstable; urgency=low
+
+  * Merge new upstream release
+  * Fixed access.conf permission to 600 rather than the default 644 value:
+    + Added lintian overrides.
+  * Added debian watch.
+  * Fixed source url in d.copyright to point to the new place where fwknop is
+    stored.
+  * Fixed typo in fwknop-c-server.default. The override option is case
+    sensitive ans should be written in lower case.
+
+ -- Franck Joncourt <franck@debian.org>  Sat, 14 Aug 2010 13:29:25 +0200
+
+fwknop (2.0.0rc1~svn271-1) unstable; urgency=low
+
+  *  New upstream release.
+
+ -- Franck Joncourt <franck@debian.org>  Sun, 25 Jul 2010 20:55:10 +0200
+
+fwknop (1.9.12-3.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix pending l10n issues. Debconf translations:
+    - Danish (Joe Hansen).  Closes: #630373
+    - Dutch; (Jeroen Schot).  Closes: #651829
+    - Polish. Closes: #659370
+
+ -- Christian Perrier <bubulle@debian.org>  Sun, 19 Feb 2012 07:22:24 +0100
+
+fwknop (1.9.12-2) unstable; urgency=low
+
+  * Refreshed maintainer email address:
+    + d.control: Updated email address and removed DM-Upload-Allowed flag.
+    + d.copyright: Refreshed email address.
+  * initscript:
+    + Fixed the Provide target in fwknop-server initscript:
+      http://lintian.debian.org/tags/init.d-script-does-not-provide-itself.html
+    + Added dependency against lsb-base (>= 3.0-6) to ensure the
+      /lib/lsb/init-functions can be sourced through the initscript.
+  * Added Spanish debconf translation. (Closes: #582870)
+  * Updated Depends field in d.control to use default-mta rather than exim4.
+  * Switched to dpkg-source 3.0 (quilt) format.
+  * Added t_upstream_spelling.diff patch to fix spelling erros.
+  * Bumped up Standards-Version to 3.9.0 (no changes).
+  * Refreshed d.copyright to follow the latest DEP5.
+
+ -- Franck Joncourt <franck@debian.org>  Wed, 07 Jul 2010 21:50:16 +0200
+
+fwknop (1.9.12-1) unstable; urgency=low
+
+  * New Upstream Version
+  * Removed [code] tags from README.Debian. All code blocks are now indented.
+  * Bumped up Standards-Version to 3.8.3 (no change).
+  * Updated copyright years in d.changelog.
+  * Updated comments in:
+      + d.fwknop-server.config
+      + d.fwknop-server.default
+      + d.README.Debian
+  * Included czech debconf translation. (Closes: #535984)
+  * d.fwknop-server.config does not pass -e to the shell on the #! line anymore,
+    but set it in the body of the script with set -e (Debian Policy 10.4).
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Wed, 09 Sep 2009 21:08:42 +0200
+
+fwknop (1.9.11-1) unstable; urgency=low
+
+  * New Upstream Version.
+  * Set default value for variables in /etc/default/fwknop-server
+    (Closes: #521677)
+  * As /var/run can be a temporary filesystem, this one should be created
+    when running the initscript.
+    http://lintian.debian.org/tags/dir-or-file-in-var-run.html
+  * Bumped up Standards-Version to 3.8.1.
+    + d.rules: Handle the noopt option through the DEB_BUILD_OPTIONS variable.
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Sun, 17 May 2009 11:31:20 +0200
+
+fwknop (1.9.10-2) unstable; urgency=low
+
+   * Added quilt framework along with README.source
+   * Added patch to fwknopd in order to bypass #508432.
+     Thanks to Martin Ferrari.
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Mon, 23 Feb 2009 22:04:56 +0100
+
+fwknop (1.9.10-1) unstable; urgency=low
+
+  * New Upstream Version
+  * The sendmail command is now handled by knopwatchd. (Closes: #506819)
+  * Fixed "Setting ALERTING_METHODS to noemail reports an error".
+    (Closes: #506815)
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Wed, 14 Jan 2009 21:11:17 +0100
+
+fwknop (1.9.9-1) unstable; urgency=low
+
+  * New Upstream Version
+  * Fixed typo in fwknop-server init-script. (Closes: #504665)
+  * Added DAEMON_ARGS variable to allow users to pass specifics options to
+    the daemon. (Closes: #504666)
+  * Adjusted priority from optional to extra.
+    (Fwknop has some dependencies on packages whose priority is extra)
+  * Fixed dependency on the mail command. (Closes: #504670)
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Sat, 15 Nov 2008 14:44:08 +0100
+
+fwknop (1.9.8-1) unstable; urgency=low
+
+  * Initial release (Closes: #406627) 
+  * Includes fr debconf translation (Closes: #500655)
+
+ -- Franck Joncourt <franck.mail@dthconnex.com>  Sun, 02 Oct 2008 19:32:55 +0200

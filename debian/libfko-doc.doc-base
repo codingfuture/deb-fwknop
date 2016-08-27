@@ -1,0 +1,9 @@
+Document: libfko
+Title: libfko
+Abstract: The documentation for the libfko library.
+Author: Damien Stuart
+Section: Programming/C
+
+Format: HTML
+Index: /usr/share/doc/libfko-doc/libfko.html/index.html
+Files: /usr/share/doc/libfko-doc/libfko.html/*

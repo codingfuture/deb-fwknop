@@ -1,0 +1,66 @@
+#!/usr/bin/make -f
+
+export DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+export DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+
+DEB_HOST_MULTIARCH        := $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+CFLAGS                    := $(shell dpkg-buildflags --get CFLAGS)
+CPPFLAGS                  := $(shell dpkg-buildflags --get CPPFLAGS)
+LDFLAGS                   := $(shell dpkg-buildflags --get LDFLAGS)
+
+ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
+    confflags += --build $(DEB_HOST_GNU_TYPE)
+else
+    confflags += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
+endif
+
+TMP_LIBFKOPERL     = $(CURDIR)/debian/libfko-perl
+TMP_LIBFKOPYTHON   = $(CURDIR)/debian/libfko-python
+
+LIB_LIBFKODEV      = usr/lib/$(DEB_HOST_MULTIARCH)
+
+PERL_ARCHLIB       = $(shell perl -MConfig -e 'print $$Config{vendorarch}')
+
+%:
+	dh $@ --with=python2
+
+override_dh_auto_clean:
+	dh_auto_clean
+#	rm -rf m4
+
+override_dh_auto_configure:
+#	mkdir m4
+	chmod +x ./debian/autogen.sh
+	./debian/autogen.sh
+	dh_auto_configure -- $(confflags) --with-gpgme --with-gpg=/usr/bin/gpg
+
+override_dh_auto_build:
+	dh_auto_build
+	cd perl/FKO && perl Makefile.PL INSTALLDIRS=vendor
+	make -C perl/FKO OPTIMIZE="$(CFLAGS) $(CPPFLAGS)" OTHERLDFLAGS="$(LDFLAGS)"
+	make -C doc html
+	cd python && python setup.py build
+
+override_dh_auto_install:
+	dh_auto_install
+	cd perl/FKO && $(MAKE) install DESTDIR=$(TMP_LIBFKOPERL) PREFIX=/usr
+	chrpath -d $(TMP_LIBFKOPERL)$(PERL_ARCHLIB)/auto/FKO/FKO.so
+	cd python && python setup.py install --root=$(TMP_LIBFKOPYTHON) --install-layout=deb
+
+override_dh_installinit:
+	dh_apparmor -pfwknop-apparmor-profile --profile-name=usr.sbin.fwknopd
+	dh_installinit
+
+override_dh_link:
+	dh_link -plibfko3-dev $(LIB_LIBFKODEV)/libfko.so.3.0.0 $(LIB_LIBFKODEV)/libfko.so
+	dh_link --remaining-packages
+
+override_dh_fixperms-arch:
+	dh_fixperms
+	chmod 600 $(CURDIR)/debian/fwknop-server/etc/fwknop/access.conf
+	chmod 600 $(CURDIR)/debian/fwknop-server/etc/fwknop/fwknopd.conf
+
+override_dh_strip:
+	dh_strip -plibfko3 --dbgsym-migration='libfko2-dbg'
+	dh_strip --remaining-packages

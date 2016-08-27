@@ -1,0 +1,18 @@
+fwknop (2.5-1) unstable; urgency=low
+
+  If you are upgrading from a previous version of fwknop you will want to
+  read the following information on backwards compatibility.
+
+  http://www.cipherdyne.org/fwknop/docs/fwknop-tutorial.html#backwards-compatibility
+
+  In short, fwknop-2.5 is compatible with prior versions, but it requires one
+  configuration tweak to either the client (add "-M legacy" to the command
+  line) or server config (add "ENCRYPTION_MODE legacy" to each stanza in the
+  access.conf file) if you wish to run a mixed environment of older clients
+  and/or older servers. The reason for the incompatibility is that prior to
+  2.5, fwknop was not properly using PBKDF1 for Rijndael key derivation
+  - this has been fixed. 
+  
+  A new libfko python binding package is available has libfko-python.
+
+ -- Franck Joncourt <franck@debian.org>  Tue, 23 Jul 2013 21:02:25 +0200

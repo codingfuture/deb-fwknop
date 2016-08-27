@@ -1,0 +1,63 @@
+Description: Fix spelling errors in documentation
+Author: Franck Joncourt <franck.joncourt@gmail.com>
+Forwarded: https://github.com/mrash/fwknop/pull/229, https://github.com/mrash/fwknop/pull/228
+
+--- a/client/fwknop.8.in
++++ b/client/fwknop.8.in
+@@ -65,7 +65,7 @@
+ .sp
+ By default, the \fBfwknop\fR client sends authorization packets over UDP port 62201, but this can be altered with the \fB\-\-server\-port\fR argument (this requires \fBfwknopd\fR to be configured to acquire SPA data over the selected port)\&. Also, \fBfwknop\fR can send the SPA packet over a random port via the \fB\-\-rand\-port\fR argument\&. See \fIfwknopd(8)\fR for further details\&. See the \fBEXAMPLES\fR section for example invocations of the \fBfwknop\fR client\&.
+ .sp
+-The \fBfwknop\fR client is quite portable, and is known to run on various Linux distributions (all major distros and embedded ones such as OpenWRT as well), FreeBSD, OpenBSD, and Cygwin on Windows\&. There is also a library \fBlibfko\fR that both \fBfwknop\fR and \fBfwknopd\fR use for SPA packet encryption/decryption and HMAC authentication operations\&. This library can be used to allow third party applications to use SPA subject to the terms of the GNU Public License (GPL v2+)\&.
++The \fBfwknop\fR client is quite portable, and is known to run on various Linux distributions (all major distros and embedded ones such as OpenWRT as well), FreeBSD, OpenBSD, and Cygwin on Windows\&. There is also a library \fBlibfko\fR that both \fBfwknop\fR and \fBfwknopd\fR use for SPA packet encryption/decryption and HMAC authentication operations\&. This library can be used to allow third party applications to use SPA subject to the terms of the GNU General Public License (GPL v2+)\&.
+ .SH "REQUIRED ARGUMENTS"
+ .sp
+ These required arguments can be specified via command\-line or from within the \fI~/\&.fwknoprc\fR file (see \fI\-n, \-\-named\-config\fR option and the FWKNOPRC FILE section below)\&.
+--- a/server/config_init.c
++++ b/server/config_init.c
+@@ -1510,7 +1510,7 @@
+       "                           back to UDP server mode if not used).\n"
+ #endif
+       " -O, --override-config   - Specify a file with configuration entries that will\n"
+-      "                           overide those in fwknopd.conf\n"
++      "                           override those in fwknopd.conf\n"
+       " -p, --pid-file          - Specify an alternate fwknopd.pid file.\n"
+       " -P, --pcap-filter       - Specify a Berkeley packet filter statement to\n"
+       "                           override the PCAP_FILTER variable in fwknopd.conf.\n"
+--- a/lib/fko.h
++++ b/lib/fko.h
+@@ -288,12 +288,12 @@
+     FKO_ERROR_GPGME_CONTEXT_SIGNER_KEY, /**< Unable to create GPGME context for the signer key*/
+     FKO_ERROR_GPGME_SIGNER_KEYLIST_START, /**< Error from signer keylist start operation*/
+     FKO_ERROR_GPGME_SIGNER_KEY_NOT_FOUND, /**< The key for the given signer was not found*/
+-    FKO_ERROR_GPGME_SIGNER_KEY_AMBIGUOUS, /**< Ambiguous name/id for the signer key (mulitple matches)*/
++    FKO_ERROR_GPGME_SIGNER_KEY_AMBIGUOUS, /**< Ambiguous name/id for the signer key (multiple matches)*/
+     FKO_ERROR_GPGME_ADD_SIGNER, /**< Error adding the signer key to the gpgme context*/
+     FKO_ERROR_GPGME_CONTEXT_RECIPIENT_KEY, /**< Unable to create GPGME context for the recipient key*/
+     FKO_ERROR_GPGME_RECIPIENT_KEYLIST_START, /**< Error from signer keylist start operation*/
+     FKO_ERROR_GPGME_RECIPIENT_KEY_NOT_FOUND, /**< The key for the given recipient was not found*/
+-    FKO_ERROR_GPGME_RECIPIENT_KEY_AMBIGUOUS, /**< Ambiguous name/id for the recipient key (mulitple matches)*/
++    FKO_ERROR_GPGME_RECIPIENT_KEY_AMBIGUOUS, /**< Ambiguous name/id for the recipient key (multiple matches)*/
+     FKO_ERROR_GPGME_DECRYPT_FAILED, /**< Decryption operation failed*/
+     FKO_ERROR_GPGME_DECRYPT_UNSUPPORTED_ALGORITHM, /**< Decryption operation failed due to unsupported algorithm*/
+     FKO_ERROR_GPGME_BAD_GPG_EXE, /**< Unable to stat the given GPG executable*/
+--- a/lib/fko_error.c
++++ b/lib/fko_error.c
+@@ -420,7 +420,7 @@
+             return("The key for the given signer was not found");
+ 
+         case FKO_ERROR_GPGME_SIGNER_KEY_AMBIGUOUS:
+-            return("Ambiguous name/id for the signer key (mulitple matches)");
++            return("Ambiguous name/id for the signer key (multiple matches)");
+ 
+         case FKO_ERROR_GPGME_ADD_SIGNER:
+             return("Error adding the signer key to the gpgme context");
+@@ -435,7 +435,7 @@
+             return("The key for the given recipient was not found");
+ 
+         case FKO_ERROR_GPGME_RECIPIENT_KEY_AMBIGUOUS:
+-            return("Ambiguous name/id for the recipient key (mulitple matches)");
++            return("Ambiguous name/id for the recipient key (multiple matches)");
+ 
+         case FKO_ERROR_GPGME_DECRYPT_FAILED:
+             return("Decryption operation failed");

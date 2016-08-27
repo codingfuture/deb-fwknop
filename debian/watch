@@ -1,0 +1,2 @@
+version=3
+opts=pgpsigurlmangle=s/$/.asc/ http://www.cipherdyne.com/fwknop/download/fwknop-([\.0-9].*).tar.gz
