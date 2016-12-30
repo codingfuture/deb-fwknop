@@ -1,3 +1,9 @@
+fwknop (2.6.9-1~cftrusty2) trusty; urgency=medium
+
+  * Updated minimal debhelper version
+
+ -- Andrey Galkin <andrey@futoin.org>  Fri, 30 Dec 2016 14:48:08 +0200
+
 fwknop (2.6.9-1~cf1) trusty; urgency=medium
 
   * Updated git repo locations
