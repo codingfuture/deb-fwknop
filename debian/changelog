@@ -1,3 +1,9 @@
+fwknop (2.6.9-1~cftrusty3) trusty; urgency=medium
+
+  * Retuning to old-style debug packages for trusty
+
+ -- Andrey Galkin <andrey@futoin.org>  Fri, 30 Dec 2016 14:56:38 +0200
+
 fwknop (2.6.9-1~cftrusty2) trusty; urgency=medium
 
   * Updated minimal debhelper version
