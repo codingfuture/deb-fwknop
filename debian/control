@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 9), automake, libtool, libgpgme11-dev,
  dh-python
 Maintainer: Debian QA Group <packages@qa.debian.org>
 Standards-Version: 3.9.8
-Vcs-Git: https://anonscm.debian.org/collab-maint/fwknop.git
-Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/fwknop.git;a=summary
+Vcs-Git: https://github.com/codingfuture/deb-fwknop.git
+Vcs-Browser: https://github.com/codingfuture/deb-fwknop
 Homepage: http://www.cipherdyne.com/fwknop/
 X-Python-Version: >= 2.7
 
