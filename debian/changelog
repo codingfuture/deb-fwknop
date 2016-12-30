@@ -1,3 +1,9 @@
+fwknop (2.6.9-1~cftrusty4) trusty; urgency=medium
+
+  * Added missing libfko3-dbg package definition
+
+ -- Andrey Galkin <andrey@futoin.org>  Fri, 30 Dec 2016 15:16:32 +0200
+
 fwknop (2.6.9-1~cftrusty3) trusty; urgency=medium
 
   * Retuning to old-style debug packages for trusty
