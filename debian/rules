@@ -62,5 +62,4 @@ override_dh_fixperms-arch:
 	chmod 600 $(CURDIR)/debian/fwknop-server/etc/fwknop/fwknopd.conf
 
 override_dh_strip:
-	dh_strip -plibfko3 --dbgsym-migration='libfko2-dbg'
-	dh_strip --remaining-packages
+	dh_strip --dbg-package=libfko3-dbg
