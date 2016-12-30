@@ -1,9 +1,9 @@
-fwknop (2.6.9-1~cf1) unstable; urgency=medium
+fwknop (2.6.9-1~cf1) trusty; urgency=medium
 
   * Updated git repo locations
   * Updated to more generic libpcap-dev build dep
 
- -- Andrey Galkin <andrey@futoin.org>  Fri, 30 Dec 2016 14:19:37 +0200
+ -- Andrey Galkin <andrey@futoin.org>  Fri, 30 Dec 2016 14:28:34 +0200
 
 fwknop (2.6.9-1) unstable; urgency=medium
 
