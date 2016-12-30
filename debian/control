@@ -34,6 +34,28 @@ Description: FireWall KNock OPerator - development library
  .
  This package provides the development library and its headers.
 
+Package: libfko3-dbg
+Architecture: linux-any
+Section: debug
+Breaks: libfko2-dbg
+Replaces: libfko2-dbg
+Depends: libfko3 (= ${binary:Version}), ${misc:Depends}
+Description: FireWall KNock OPerator - debugging symbols
+ The FireWall KNock OPerator implements an authorization scheme called
+ Single Packet Authorization (SPA), based on Netfilter and libpcap.
+ .
+ Its main application is to protect services such as OpenSSH with
+ an additional layer of security in order to make the exploitation of
+ vulnerabilities (both 0-day and unpatched code) much more difficult.
+ .
+ The authorization server passively listens for authorization packets via
+ libcap, so there is no service listening for network connections on the
+ traditional port. Access to a protected service is only granted after a
+ valid encrypted and non-replayed packet is detected. 
+ .
+ This package provides the debugging symbols for the library as well as for
+ the fwknop server and client programs (C version only).
+
 Package: libfko3
 Section: libs
 Architecture: linux-any
